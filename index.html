@@ -4,27 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!--
-  ─────────────────────────────────────────────────────────────
-  PLACEHOLDERS TO REPLACE — everything in [BRACKETS] below:
-    · name + role         → <header>
-    · about paragraph     → section#about
-    · projects            → section#projects (add/remove <li class="row">)
-    · experience          → section#experience
-    · links               → section#links  + the OG/meta tags here in <head>
-  ─────────────────────────────────────────────────────────────
--->
-
-<title>[Your Name]</title>
-<meta name="description" content="[One line about you — shows up in search results and link previews.]">
+<title>Rahul Raghupathi</title>
+<meta name="description" content="Software engineer working on backend and distributed systems — Go, Java, TypeScript.">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="[Your Name]">
-<meta property="og:description" content="[One line about you.]">
+<meta property="og:title" content="Rahul Raghupathi">
+<meta property="og:description" content="Software engineer working on backend and distributed systems — Go, Java, TypeScript.">
 <meta property="og:url" content="https://flames31.github.io">
 <meta name="twitter:card" content="summary">
 
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='5' fill='%23171719'/><text x='16' y='23' font-family='monospace' font-size='20' fill='%23d9c08c' text-anchor='middle'>r</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='5' fill='%230e0c0b'/><text x='16' y='23' font-family='monospace' font-size='20' fill='%23fa8225' text-anchor='middle'>r</text></svg>">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,7 +21,7 @@
 <link rel="stylesheet" href="style.css">
 
 <script>
-  /* Stamp the stored theme before first paint — prevents a flash of the wrong background. */
+  /* Stamp the stored theme before first paint — prevents a flash of the wrong theme. */
   try {
     var s = localStorage.getItem('scheme');
     if (s === 'light' || s === 'dark') document.documentElement.dataset.scheme = s;
@@ -45,8 +34,8 @@
 
   <header class="header">
     <div>
-      <h1 class="name">[Your Name]</h1>
-      <p class="role">[backend engineer · city]</p>
+      <h1 class="name">Rahul Raghupathi</h1>
+      <p class="role">software engineer · distributed systems</p>
     </div>
     <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to light theme">
       <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -64,8 +53,11 @@
   <section id="about">
     <h2 class="label">About</h2>
     <p class="prose">
-      [Two or three sentences, first person. What you work on, what you care about,
-      what you're doing right now. Keep it short — this is the part people actually read.]
+      I build backend systems — mostly Go and Java, with a fair amount of TypeScript on top.
+      These days that means streaming pipelines, Postgres that has to stay fast at scale, and
+      LLM tooling that does something useful rather than something impressive. Previously two
+      years on trading infrastructure at IG Group; recently finished a master's in computer
+      science at Indiana University Bloomington.
     </p>
   </section>
 
@@ -73,37 +65,43 @@
     <h2 class="label">Projects</h2>
     <ul class="rows">
 
+      <!-- No repo URLs yet, so titles are plain text. To link one, replace its
+           <span class="row-title">Name</span> with this, keeping the rest of the row:
+
+      <a class="row-link" href="https://github.com/flames31/REPO">
+        <span class="row-title">Name</span>
+        <svg class="row-arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg>
+      </a>
+      -->
+
       <li class="row">
-        <a class="row-link" href="[https://github.com/flames31/project-one]">
-          <span class="row-title">[project-one]</span>
-          <svg class="row-arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M7 17L17 7M17 7H8M17 7v9"/>
-          </svg>
-        </a>
-        <p class="row-desc">[One line on what it does and why it exists.]</p>
-        <p class="tags">[go] · [postgres] · [docker]</p>
+        <span class="row-title">AI-Powered Incident Responder</span>
+        <p class="row-desc">
+          Closed-loop incident response platform that investigates failures across distributed
+          services from metrics and logs, then verifies its own recovery with post-action
+          telemetry. Benchmarked against 100+ scenarios with RAG over historical runbooks.
+        </p>
+        <p class="tags">go · prometheus · loki · grafana · kubernetes · postgres</p>
       </li>
 
       <li class="row">
-        <a class="row-link" href="[https://github.com/flames31/project-two]">
-          <span class="row-title">[project-two]</span>
-          <svg class="row-arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M7 17L17 7M17 7H8M17 7v9"/>
-          </svg>
-        </a>
-        <p class="row-desc">[One line on what it does and why it exists.]</p>
-        <p class="tags">[typescript] · [react]</p>
+        <span class="row-title">Multi-Document Extractor</span>
+        <p class="row-desc">
+          Multi-tenant extraction API where each tenant defines its own JSON schema instead of
+          getting bespoke parsing code. Queue-backed ingestion with HMAC-signed webhooks keeps
+          responses under 200ms while extraction runs out of band.
+        </p>
+        <p class="tags">nestjs · typescript · postgres · redis · react · docker</p>
       </li>
 
       <li class="row">
-        <a class="row-link" href="[https://github.com/flames31/project-three]">
-          <span class="row-title">[project-three]</span>
-          <svg class="row-arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M7 17L17 7M17 7H8M17 7v9"/>
-          </svg>
-        </a>
-        <p class="row-desc">[One line on what it does and why it exists.]</p>
-        <p class="tags">[python]</p>
+        <span class="row-title">Multi-Cloud Optimization Bot</span>
+        <p class="row-desc">
+          Correlates AWS, GCP and Kubernetes utilization across 50+ workloads to find
+          over-provisioned resources, then right-sizes them through a remediation pipeline
+          with policy checks and post-change validation.
+        </p>
+        <p class="tags">python · aws · gcp · kubernetes · github actions</p>
       </li>
 
     </ul>
@@ -115,35 +113,50 @@
 
       <li class="row job">
         <div class="job-main">
-          <span class="row-title">[Company Name]</span>
-          <span class="job-role">[Software Engineer]</span>
+          <span class="row-title">Global Health Impact</span>
+          <span class="job-role">Software Engineer · Remote</span>
         </div>
-        <span class="job-dates">[2024 — present]</span>
+        <span class="job-dates">2026 — present</span>
       </li>
 
       <li class="row job">
         <div class="job-main">
-          <span class="row-title">[Previous Company]</span>
-          <span class="job-role">[Intern]</span>
+          <span class="row-title">IG Group</span>
+          <span class="job-role">Software Engineer · Bangalore</span>
         </div>
-        <span class="job-dates">[2023 — 2024]</span>
+        <span class="job-dates">2022 — 2024</span>
+      </li>
+
+      <li class="row job">
+        <div class="job-main">
+          <span class="row-title">Indiana University Bloomington</span>
+          <span class="job-role">M.S. Computer Science</span>
+        </div>
+        <span class="job-dates">2024 — 2026</span>
       </li>
 
     </ul>
+  </section>
+
+  <section id="skills">
+    <h2 class="label">Tools</h2>
+    <p class="prose">
+      Go · Java · Python · TypeScript · SQL · Spring Boot · React · gRPC · GraphQL ·
+      PostgreSQL · Redis · Kafka · MongoDB · Docker · Kubernetes · AWS · OpenTelemetry ·
+      Prometheus · Grafana
+    </p>
   </section>
 
   <section id="links">
     <h2 class="label">Elsewhere</h2>
     <p class="links">
       <a href="https://github.com/flames31">github</a> ·
-      <a href="mailto:[you@example.com]">email</a> ·
-      <a href="[https://linkedin.com/in/you]">linkedin</a> ·
-      <a href="[resume.pdf]">resume</a>
+      <a href="https://linkedin.com/in/rahulraghupathi">linkedin</a>
     </p>
   </section>
 
   <footer class="footer">
-    <p>[Your Name] · built with html and css</p>
+    <p>Rahul Raghupathi · built with html and css</p>
   </footer>
 
 </main>
