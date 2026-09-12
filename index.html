@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!--
+  ─────────────────────────────────────────────────────────────
+  PLACEHOLDERS TO REPLACE — everything in [BRACKETS] below:
+    · name + role         → <header>
+    · about paragraph     → section#about
+    · projects            → section#projects (add/remove <li class="row">)
+    · experience          → section#experience
+    · links               → section#links  + the OG/meta tags here in <head>
+  ─────────────────────────────────────────────────────────────
+-->
+
+<title>[Your Name]</title>
+<meta name="description" content="[One line about you — shows up in search results and link previews.]">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="[Your Name]">
+<meta property="og:description" content="[One line about you.]">
+<meta property="og:url" content="https://flames31.github.io">
+<meta name="twitter:card" content="summary">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='5' fill='%23171719'/><text x='16' y='23' font-family='monospace' font-size='20' fill='%23d9c08c' text-anchor='middle'>r</text></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css">
+
+<script>
+  /* Stamp the stored theme before first paint — prevents a flash of the wrong background. */
+  try {
+    var s = localStorage.getItem('scheme');
+    if (s === 'light' || s === 'dark') document.documentElement.dataset.scheme = s;
+  } catch (e) {}
+</script>
+</head>
+
+<body>
+<main class="page">
+
+  <header class="header">
+    <div>
+      <h1 class="name">[Your Name]</h1>
+      <p class="role">[backend engineer · city]</p>
+    </div>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to light theme">
+      <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+      <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+      </svg>
+    </button>
+  </header>
+
+  <hr>
+
+  <section id="about">
+    <h2 class="label">About</h2>
+    <p class="prose">
+      [Two or three sentences, first person. What you work on, what you care about,
+      what you're doing right now. Keep it short — this is the part people actually read.]
+    </p>
+  </section>
+
+  <section id="projects">
+    <h2 class="label">Projects</h2>
+    <ul class="rows">
+
+      <li class="row">
+        <a class="row-link" href="[https://github.com/flames31/project-one]">
+          <span class="row-title">[project-one]</span>
+          <svg class="row-arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 17L17 7M17 7H8M17 7v9"/>
+          </svg>
+        </a>
+        <p class="row-desc">[One line on what it does and why it exists.]</p>
+        <p class="tags">[go] · [postgres] · [docker]</p>
+      </li>
+
+      <li class="row">
+        <a class="row-link" href="[https://github.com/flames31/project-two]">
+          <span class="row-title">[project-two]</span>
+          <svg class="row-arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 17L17 7M17 7H8M17 7v9"/>
+          </svg>
+        </a>
+        <p class="row-desc">[One line on what it does and why it exists.]</p>
+        <p class="tags">[typescript] · [react]</p>
+      </li>
+
+      <li class="row">
+        <a class="row-link" href="[https://github.com/flames31/project-three]">
+          <span class="row-title">[project-three]</span>
+          <svg class="row-arrow" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M7 17L17 7M17 7H8M17 7v9"/>
+          </svg>
+        </a>
+        <p class="row-desc">[One line on what it does and why it exists.]</p>
+        <p class="tags">[python]</p>
+      </li>
+
+    </ul>
+  </section>
+
+  <section id="experience">
+    <h2 class="label">Experience</h2>
+    <ul class="rows">
+
+      <li class="row job">
+        <div class="job-main">
+          <span class="row-title">[Company Name]</span>
+          <span class="job-role">[Software Engineer]</span>
+        </div>
+        <span class="job-dates">[2024 — present]</span>
+      </li>
+
+      <li class="row job">
+        <div class="job-main">
+          <span class="row-title">[Previous Company]</span>
+          <span class="job-role">[Intern]</span>
+        </div>
+        <span class="job-dates">[2023 — 2024]</span>
+      </li>
+
+    </ul>
+  </section>
+
+  <section id="links">
+    <h2 class="label">Elsewhere</h2>
+    <p class="links">
+      <a href="https://github.com/flames31">github</a> ·
+      <a href="mailto:[you@example.com]">email</a> ·
+      <a href="[https://linkedin.com/in/you]">linkedin</a> ·
+      <a href="[resume.pdf]">resume</a>
+    </p>
+  </section>
+
+  <footer class="footer">
+    <p>[Your Name] · built with html and css</p>
+  </footer>
+
+</main>
+
+<script src="theme.js" defer></script>
+</body>
+</html>

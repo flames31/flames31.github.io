@@ -1,0 +1,284 @@
+/* ── tokens ───────────────────────────────────────────────────────────────
+   Ported from glanceapp/glance: near-black slightly-blue ground, a single
+   warm sand accent, and four tiers of muted text. Dark is the base; light
+   inverts the lightness ramp. Every color is defined on bare :root first so
+   nothing depends on a media query resolving.                            */
+
+:root {
+  --bg:              hsl(240 8% 9%);
+  --bg-raised:       hsl(240 8% 10.5%);
+  --separator:       hsl(240 8% 14%);
+  --accent:          hsl(43 50% 70%);
+
+  --text-highlight:  hsl(240 8% 85%);
+  --text-paragraph:  hsl(240 8% 73%);
+  --text-base:       hsl(240 8% 58%);
+  --text-subdue:     hsl(240 8% 35%);
+
+  --radius: 5px;
+  --page-width: 46rem;
+
+  color-scheme: dark;
+}
+
+/* system preference, only while the reader hasn't chosen explicitly */
+@media (prefers-color-scheme: light) {
+  :root:not([data-scheme="dark"]) {
+    --bg:             hsl(240 8% 97%);
+    --bg-raised:      hsl(240 8% 94%);
+    --separator:      hsl(240 8% 87%);
+    --accent:         hsl(43 55% 36%);
+
+    --text-highlight: hsl(240 8% 13%);
+    --text-paragraph: hsl(240 8% 27%);
+    --text-base:      hsl(240 8% 40%);
+    --text-subdue:    hsl(240 8% 58%);
+
+    color-scheme: light;
+  }
+}
+
+/* explicit choice — wins in both directions */
+:root[data-scheme="light"] {
+  --bg:             hsl(240 8% 97%);
+  --bg-raised:      hsl(240 8% 94%);
+  --separator:      hsl(240 8% 87%);
+  --accent:         hsl(43 55% 36%);
+
+  --text-highlight: hsl(240 8% 13%);
+  --text-paragraph: hsl(240 8% 27%);
+  --text-base:      hsl(240 8% 40%);
+  --text-subdue:    hsl(240 8% 58%);
+
+  color-scheme: light;
+}
+
+/* ── reset ─────────────────────────────────────────────────────────────── */
+
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+
+a { color: inherit; text-decoration: none; overflow-wrap: break-word; }
+ul { list-style: none; }
+h1, h2, h3 { font: inherit; }
+svg { display: block; }
+
+button {
+  font: inherit;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+::selection {
+  background-color: var(--separator);
+  color: var(--text-highlight);
+}
+
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ── base ──────────────────────────────────────────────────────────────── */
+
+html {
+  font-size: 62.5%;          /* 1rem = 10px, as in Glance */
+  scrollbar-color: var(--text-subdue) transparent;
+}
+
+body {
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-variant-ligatures: none;
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: var(--text-base);
+  background-color: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background-color: var(--separator);
+}
+
+/* ── layout ────────────────────────────────────────────────────────────── */
+
+.page {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: 9rem 2.4rem 6rem;
+  animation: fade .4s cubic-bezier(0.25, 1, 0.5, 1) backwards;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page { animation: none; }
+}
+
+.page > hr { margin: 3rem 0; }
+
+section + section { margin-top: 4.5rem; }
+
+/* ── header ────────────────────────────────────────────────────────────── */
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.name {
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: var(--text-highlight);
+  letter-spacing: -0.02em;
+}
+
+.role {
+  color: var(--text-subdue);
+  margin-top: 0.2rem;
+}
+
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  flex-shrink: 0;
+  border-radius: var(--radius);
+  color: var(--text-subdue);
+  transition: color .15s, background-color .15s;
+}
+
+.theme-toggle:hover {
+  color: var(--accent);
+  background-color: var(--bg-raised);
+}
+
+/* show the icon for the theme you'd switch *to*: dark page -> sun, light page -> moon */
+.icon-moon { display: none; }
+.icon-sun  { display: block; }
+
+:root[data-scheme="light"] .icon-sun  { display: none; }
+:root[data-scheme="light"] .icon-moon { display: block; }
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-scheme="dark"]) .icon-sun  { display: none; }
+  :root:not([data-scheme="dark"]) .icon-moon { display: block; }
+}
+
+/* ── section labels ────────────────────────────────────────────────────── */
+
+.label {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-subdue);
+  margin-bottom: 1.4rem;
+}
+
+/* ── about ─────────────────────────────────────────────────────────────── */
+
+.prose {
+  color: var(--text-paragraph);
+  max-width: 62ch;
+}
+
+/* ── rows (projects + experience) ──────────────────────────────────────── */
+
+.rows { display: flex; flex-direction: column; gap: 2.2rem; }
+
+.row-title {
+  color: var(--text-highlight);
+  font-weight: 500;
+  transition: color .15s;
+}
+
+.row-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.row-arrow {
+  color: var(--text-subdue);
+  opacity: 0;
+  transition: opacity .15s, color .15s;
+}
+
+.row-link:hover .row-title,
+.row-link:focus-visible .row-title { color: var(--accent); }
+
+.row-link:hover .row-arrow,
+.row-link:focus-visible .row-arrow { opacity: 1; color: var(--accent); }
+
+.row-desc {
+  color: var(--text-paragraph);
+  max-width: 62ch;
+  margin-top: 0.2rem;
+}
+
+.tags {
+  color: var(--text-subdue);
+  font-size: 1.2rem;
+  margin-top: 0.4rem;
+}
+
+/* ── experience ────────────────────────────────────────────────────────── */
+
+.job {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.6rem;
+}
+
+/* role sits under the company so rows never wrap unevenly as names change length */
+.job-main { display: flex; flex-direction: column; }
+
+.job-role  { color: var(--text-paragraph); }
+.job-dates { color: var(--text-subdue); font-size: 1.2rem; white-space: nowrap; }
+
+/* ── links ─────────────────────────────────────────────────────────────── */
+
+.links { color: var(--text-subdue); }
+
+.links a {
+  color: var(--text-paragraph);
+  transition: color .15s;
+}
+
+.links a:hover { color: var(--accent); }
+
+/* ── footer ────────────────────────────────────────────────────────────── */
+
+.footer {
+  margin-top: 6rem;
+  padding-top: 2.4rem;
+  border-top: 1px solid var(--separator);
+  color: var(--text-subdue);
+  font-size: 1.2rem;
+}
+
+/* ── narrow screens ────────────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .page { padding: 5rem 1.8rem 4rem; }
+
+  .job {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+
+  /* touch devices have no hover — keep the arrow visible */
+  .row-arrow { opacity: 1; }
+}
