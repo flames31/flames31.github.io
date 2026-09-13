@@ -226,11 +226,26 @@ section + section { margin-top: 4.5rem; }
   margin-top: 0.2rem;
 }
 
-.tags {
-  color: var(--text-subdue);
-  font-size: 1.2rem;
-  margin-top: 0.4rem;
+/* tech logos — inline sprite, sized in ems so they track the type */
+.stack {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.3rem;
+  margin-top: 1rem;
 }
+
+.tech {
+  width: 1.8rem;
+  height: 1.8rem;
+  fill: currentColor;
+  color: var(--text-base);
+  transition: color .15s;
+}
+
+.tech:hover { color: var(--accent); }
+
+.sprite { display: none; }
 
 /* ── experience ────────────────────────────────────────────────────────── */
 
@@ -257,16 +272,6 @@ section + section { margin-top: 4.5rem; }
 }
 
 .links a:hover { color: var(--accent); }
-
-/* ── footer ────────────────────────────────────────────────────────────── */
-
-.footer {
-  margin-top: 6rem;
-  padding-top: 2.4rem;
-  border-top: 1px solid var(--separator);
-  color: var(--text-subdue);
-  font-size: 1.2rem;
-}
 
 /* ── narrow screens ────────────────────────────────────────────────────── */
 
