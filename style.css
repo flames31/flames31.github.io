@@ -1,18 +1,19 @@
 /* ── tokens ───────────────────────────────────────────────────────────────
    Structure ported from glanceapp/glance — a single accent, four tiers of
-   text, flat separators — recolored to an amber terminal palette: the whole
-   text ramp is tinted orange over a near-black warm ground.              */
+   text, flat separators — recolored to an amber terminal palette. The text
+   ramp is saturated orange built around the primary hsl(24 97% 58%), over a
+   near-black warm ground.                                                */
 
 :root {
-  --bg:              hsl(24 14% 5%);
-  --bg-raised:       hsl(24 13% 8%);
-  --separator:       hsl(24 12% 14%);
-  --accent:          hsl(24 95% 58%);
+  --bg:              hsl(24 22% 3%);
+  --bg-raised:       hsl(24 20% 6%);
+  --separator:       hsl(24 24% 12%);
+  --accent:          hsl(24 97% 58%);
 
-  --text-highlight:  hsl(32 75% 72%);
-  --text-paragraph:  hsl(30 48% 64%);
-  --text-base:       hsl(30 33% 55%);
-  --text-subdue:     hsl(28 22% 42%);
+  --text-highlight:  hsl(26 97% 70%);
+  --text-paragraph:  hsl(25 85% 62%);
+  --text-base:       hsl(24 70% 55%);
+  --text-subdue:     hsl(24 48% 40%);
 
   --radius: 5px;
   --page-width: 56rem;
@@ -23,15 +24,15 @@
 /* system preference, only while the reader hasn't chosen explicitly */
 @media (prefers-color-scheme: light) {
   :root:not([data-scheme="dark"]) {
-    --bg:             hsl(30 30% 97%);
-    --bg-raised:      hsl(30 25% 93%);
-    --separator:      hsl(28 20% 86%);
-    --accent:         hsl(20 90% 40%);
+    --bg:             hsl(30 40% 97%);
+    --bg-raised:      hsl(30 32% 93%);
+    --separator:      hsl(28 26% 85%);
+    --accent:         hsl(21 95% 42%);
 
-    --text-highlight: hsl(24 65% 20%);
-    --text-paragraph: hsl(26 38% 30%);
-    --text-base:      hsl(28 30% 39%);
-    --text-subdue:    hsl(28 20% 52%);
+    --text-highlight: hsl(22 92% 28%);
+    --text-paragraph: hsl(24 70% 34%);
+    --text-base:      hsl(24 58% 41%);
+    --text-subdue:    hsl(24 38% 54%);
 
     color-scheme: light;
   }
@@ -39,15 +40,15 @@
 
 /* explicit choice — wins in both directions */
 :root[data-scheme="light"] {
-  --bg:             hsl(30 30% 97%);
-  --bg-raised:      hsl(30 25% 93%);
-  --separator:      hsl(28 20% 86%);
-  --accent:         hsl(20 90% 40%);
+  --bg:             hsl(30 40% 97%);
+  --bg-raised:      hsl(30 32% 93%);
+  --separator:      hsl(28 26% 85%);
+  --accent:         hsl(21 95% 42%);
 
-  --text-highlight: hsl(24 65% 20%);
-  --text-paragraph: hsl(26 38% 30%);
-  --text-base:      hsl(28 30% 39%);
-  --text-subdue:    hsl(28 20% 52%);
+  --text-highlight: hsl(22 92% 28%);
+  --text-paragraph: hsl(24 70% 34%);
+  --text-base:      hsl(24 58% 41%);
+  --text-subdue:    hsl(24 38% 54%);
 
   color-scheme: light;
 }
