@@ -36,9 +36,13 @@
 
     color-scheme: light;
   }
+
+  :root:not([data-scheme="dark"]) .tech { color: var(--c-light, var(--c, currentColor)); }
 }
 
 /* explicit choice — wins in both directions */
+:root[data-scheme="light"] .tech { color: var(--c-light, var(--c, currentColor)); }
+
 :root[data-scheme="light"] {
   --bg:             hsl(30 40% 97%);
   --bg-raised:      hsl(30 32% 93%);
@@ -128,12 +132,33 @@ section + section { margin-top: 4.5rem; }
 
 /* ── header ────────────────────────────────────────────────────────────── */
 
-.header {
+/* name and links share a row; the role line sits underneath it */
+.header-top {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  gap: 2rem;
+  flex-wrap: wrap;
+  gap: 1.2rem 2rem;
 }
+
+/* ── social links + theme toggle ───────────────────────────────────────── */
+
+.social {
+  display: flex;
+  align-items: center;
+  gap: 1.8rem;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: var(--text-base);
+  transition: color .15s;
+}
+
+.social-link:hover { color: var(--accent); }
+.social-link:hover .tech { opacity: 1; }
 
 .name {
   font-size: 1.8rem;
@@ -238,12 +263,16 @@ section + section { margin-top: 4.5rem; }
 .tech {
   width: 1.8rem;
   height: 1.8rem;
+  flex-shrink: 0;
   fill: currentColor;
-  color: var(--text-base);
-  transition: color .15s;
+  /* brand color, set per icon. --c-dark / --c-light override it on the theme
+     where the brand's own color would disappear into the background. */
+  color: var(--c-dark, var(--c, currentColor));
+  opacity: .88;
+  transition: opacity .15s;
 }
 
-.tech:hover { color: var(--accent); }
+.tech:hover { opacity: 1; }
 
 .sprite { display: none; }
 
@@ -262,21 +291,12 @@ section + section { margin-top: 4.5rem; }
 .job-role  { color: var(--text-paragraph); }
 .job-dates { color: var(--text-subdue); font-size: 1.2rem; white-space: nowrap; }
 
-/* ── links ─────────────────────────────────────────────────────────────── */
-
-.links { color: var(--text-subdue); }
-
-.links a {
-  color: var(--text-paragraph);
-  transition: color .15s;
-}
-
-.links a:hover { color: var(--accent); }
-
 /* ── narrow screens ────────────────────────────────────────────────────── */
 
 @media (max-width: 640px) {
   .page { padding: 5rem 1.8rem 4rem; }
+
+  .social { gap: 1.4rem; }
 
   .job {
     flex-direction: column;
