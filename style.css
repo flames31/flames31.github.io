@@ -16,7 +16,6 @@
   --text-subdue:     hsl(24 48% 40%);
 
   --radius: 5px;
-  --page-width: 56rem;
 
   color-scheme: dark;
 }
@@ -89,14 +88,15 @@ button {
 /* ── base ──────────────────────────────────────────────────────────────── */
 
 html {
-  font-size: 62.5%;          /* 1rem = 10px, as in Glance */
+  /* 1rem = 10px on phones (as in Glance), growing to 13px on wide screens */
+  font-size: clamp(62.5%, 0.35vw + 55%, 81.25%);
   scrollbar-color: var(--text-subdue) transparent;
 }
 
 body {
   font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   font-variant-ligatures: none;
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   line-height: 1.6;
   color: var(--text-base);
   background-color: var(--bg);
@@ -109,12 +109,34 @@ hr {
   background-color: var(--separator);
 }
 
+/* every link: accent color and a small lift */
+:root { --ease-lift: cubic-bezier(.2, .8, .2, 1); }
+
+a {
+  position: relative;
+  transition: color .25s ease, transform .25s var(--ease-lift);
+  will-change: transform;          /* keep its own layer, so text doesn't snap as the lift ends */
+}
+
+/* hit area reaches 4px past the link, so the lifted link stays under the cursor
+   instead of slipping out, dropping back, and flickering */
+a::before {
+  content: "";
+  position: absolute;
+  inset: -4px 0;
+  z-index: -1;
+}
+
+a:is(:hover, :focus-visible) {
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
 /* ── layout ────────────────────────────────────────────────────────────── */
 
 .page {
-  max-width: var(--page-width);
-  margin: 0 auto;
-  padding: 9rem 2.4rem 6rem;
+  --gutter: clamp(2.4rem, 6vw, 10rem);
+  padding: 9rem var(--gutter) 6rem;
   animation: fade .4s cubic-bezier(0.25, 1, 0.5, 1) backwards;
 }
 
@@ -126,9 +148,9 @@ hr {
   .page { animation: none; }
 }
 
-.page > hr { margin: 3rem 0; }
+.page > hr { margin: 4rem 0; }
 
-section + section { margin-top: 4.5rem; }
+section + section { margin-top: 6rem; }
 
 /* ── header ────────────────────────────────────────────────────────────── */
 
@@ -154,14 +176,12 @@ section + section { margin-top: 4.5rem; }
   align-items: center;
   gap: 0.7rem;
   color: var(--text-base);
-  transition: color .15s;
 }
 
-.social-link:hover { color: var(--accent); }
 .social-link:hover .tech { opacity: 1; }
 
 .name {
-  font-size: 1.8rem;
+  font-size: 2.8rem;
   font-weight: 500;
   color: var(--text-highlight);
   letter-spacing: -0.02em;
@@ -175,18 +195,27 @@ section + section { margin-top: 4.5rem; }
 .theme-toggle {
   display: grid;
   place-items: center;
-  width: 3.2rem;
-  height: 3.2rem;
+  width: 3.8rem;
+  height: 3.8rem;
   flex-shrink: 0;
   border-radius: var(--radius);
   color: var(--text-subdue);
-  transition: color .15s, background-color .15s;
+  transition: color .25s ease, background-color .25s ease;
+}
+
+/* only the icon lifts; the button's hit area stays put */
+.theme-toggle svg {
+  width: 1.8rem;
+  height: 1.8rem;
+  transition: transform .25s var(--ease-lift);
 }
 
 .theme-toggle:hover {
   color: var(--accent);
   background-color: var(--bg-raised);
 }
+
+.theme-toggle:hover svg { transform: translateY(-2px); }
 
 /* show the icon for the theme you'd switch *to*: dark page -> sun, light page -> moon */
 .icon-moon { display: none; }
@@ -203,7 +232,7 @@ section + section { margin-top: 4.5rem; }
 /* ── section labels ────────────────────────────────────────────────────── */
 
 .label {
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--text-subdue);
@@ -212,10 +241,60 @@ section + section { margin-top: 4.5rem; }
 
 /* ── about ─────────────────────────────────────────────────────────────── */
 
-.prose {
-  color: var(--text-paragraph);
-  max-width: 62ch;
+.prose { color: var(--text-paragraph); }
+
+/* ── projects strip ────────────────────────────────────────────────────── */
+
+/* Dragged by marquee.js, which repeats the cards and wraps the position so the
+   strip cycles forever. It bleeds into the page gutters and fades out there. */
+.marquee {
+  overflow: hidden;
+  margin-inline: calc(-1 * var(--gutter));
+  padding: 0.4rem var(--gutter);     /* block padding: room for the card lift */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent);
+          mask-image: linear-gradient(to right, transparent, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent);
+  cursor: grab;
+  touch-action: pan-y;               /* vertical swipes still scroll the page */
+  -webkit-user-select: none;
+          user-select: none;
 }
+
+.marquee.is-dragging { cursor: grabbing; }
+
+.marquee:focus-visible { outline-offset: -2px; }
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+/* margin rather than gap, so one set of cards measures exactly n × step */
+.card {
+  position: relative;
+  flex-shrink: 0;
+  width: min(38rem, 78vw);
+  margin-right: 2rem;
+  padding: 2rem 2.2rem;
+  background-color: var(--bg-raised);
+  border: 1px solid var(--separator);
+  border-radius: var(--radius);
+  transition: transform .25s var(--ease-lift), border-color .25s ease;
+}
+
+.card::before {                      /* same hit-area pad as links */
+  content: "";
+  position: absolute;
+  inset: -4px 0;
+  z-index: -1;
+}
+
+.card:has(a):hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+}
+
+.marquee.is-dragging .card { transform: none; }
 
 /* ── rows (projects + experience) ──────────────────────────────────────── */
 
@@ -247,7 +326,6 @@ section + section { margin-top: 4.5rem; }
 
 .row-desc {
   color: var(--text-paragraph);
-  max-width: 62ch;
   margin-top: 0.2rem;
 }
 
@@ -261,8 +339,8 @@ section + section { margin-top: 4.5rem; }
 }
 
 .tech {
-  width: 1.8rem;
-  height: 1.8rem;
+  width: 2.2rem;
+  height: 2.2rem;
   flex-shrink: 0;
   fill: currentColor;
   /* brand color, set per icon. --c-dark / --c-light override it on the theme
@@ -289,12 +367,12 @@ section + section { margin-top: 4.5rem; }
 .job-main { display: flex; flex-direction: column; }
 
 .job-role  { color: var(--text-paragraph); }
-.job-dates { color: var(--text-subdue); font-size: 1.2rem; white-space: nowrap; }
+.job-dates { color: var(--text-subdue); font-size: 1.4rem; white-space: nowrap; }
 
 /* ── narrow screens ────────────────────────────────────────────────────── */
 
 @media (max-width: 640px) {
-  .page { padding: 5rem 1.8rem 4rem; }
+  .page { --gutter: 1.8rem; padding-block: 5rem 4rem; }
 
   .social { gap: 1.4rem; }
 
@@ -306,4 +384,13 @@ section + section { margin-top: 4.5rem; }
 
   /* touch devices have no hover — keep the arrow visible */
   .row-arrow { opacity: 1; }
+}
+
+/* ── reduced motion ────────────────────────────────────────────────────── */
+
+/* last, so it beats the hover lifts above; the color change stays */
+@media (prefers-reduced-motion: reduce) {
+  a:is(:hover, :focus-visible),
+  .theme-toggle:hover svg,
+  .card:has(a):hover { transform: none; }
 }

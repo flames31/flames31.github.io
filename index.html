@@ -44,10 +44,10 @@
           <svg class="tech" style="--c:#0A66C2; --c-dark:#3B9BE8" aria-hidden="true"><use href="#i-linkedin"/></svg>linkedin
         </a>
         <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to light theme">
-          <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
           </svg>
-          <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="12" cy="12" r="4"/>
             <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
           </svg>
@@ -70,10 +70,12 @@
 
   <section id="projects">
     <h2 class="label">Projects</h2>
-    <ul class="rows">
+    <div class="marquee" tabindex="0" role="region" aria-label="Projects — drag or use the arrow keys">
+    <ul class="marquee-track">
 
-      <!-- No repo URLs yet, so titles are plain text. To link one, replace its
-           <span class="row-title">Name</span> with this, keeping the rest of the row:
+      <!-- To add a project, add another <li class="card"> — marquee.js cycles
+           through however many there are. No repo URLs yet, so titles are plain text.
+           To link one, replace its <span class="row-title">Name</span> with this:
 
       <a class="row-link" href="https://github.com/flames31/REPO">
         <span class="row-title">Name</span>
@@ -81,7 +83,7 @@
       </a>
       -->
 
-      <li class="row">
+      <li class="card">
         <span class="row-title">AI-Powered Incident Responder</span>
         <p class="row-desc">Investigates failures across distributed services from telemetry, then verifies its own recovery.</p>
         <p class="stack">
@@ -93,7 +95,7 @@
         </p>
       </li>
 
-      <li class="row">
+      <li class="card">
         <span class="row-title">Multi-Document Extractor</span>
         <p class="row-desc">Multi-tenant API where each tenant defines its own extraction schema.</p>
         <p class="stack">
@@ -106,7 +108,7 @@
         </p>
       </li>
 
-      <li class="row">
+      <li class="card">
         <span class="row-title">Multi-Cloud Optimization Bot</span>
         <p class="row-desc">Finds over-provisioned workloads across clouds and right-sizes them automatically.</p>
         <p class="stack">
@@ -119,6 +121,7 @@
       </li>
 
     </ul>
+    </div>
   </section>
 
   <section id="experience">
@@ -175,5 +178,6 @@
 </svg>
 
 <script src="theme.js" defer></script>
+<script src="marquee.js" defer></script>
 </body>
 </html>
