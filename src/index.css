@@ -1,0 +1,201 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ── tokens ───────────────────────────────────────────────────────────────
+   Structure ported from glanceapp/glance — a single accent, four tiers of
+   text, flat separators — recolored to an amber terminal palette, then
+   mapped onto shadcn's token names so every component picks it up.
+
+   highlight → --foreground        paragraph → --paragraph
+   base      → --secondary-foreground   subdue → --muted-foreground
+   accent    → --primary / --ring   raised ground → --card, --muted, --accent */
+
+:root {
+  --background:           hsl(30 40% 97%);
+  --raised:               hsl(30 32% 93%);
+  --border:               hsl(28 26% 85%);
+  --primary:              hsl(21 95% 42%);
+
+  --foreground:           hsl(22 92% 28%);
+  --paragraph:            hsl(24 70% 34%);
+  --secondary-foreground: hsl(24 58% 41%);
+  --muted-foreground:     hsl(24 38% 54%);
+
+  --radius: 5px;
+  color-scheme: light;
+}
+
+.dark {
+  --background:           hsl(24 22% 3%);
+  --raised:               hsl(24 20% 6%);
+  --border:               hsl(24 24% 12%);
+  --primary:              hsl(24 97% 58%);
+
+  --foreground:           hsl(26 97% 70%);
+  --paragraph:            hsl(25 85% 62%);
+  --secondary-foreground: hsl(24 70% 55%);
+  --muted-foreground:     hsl(24 48% 40%);
+
+  color-scheme: dark;
+}
+
+/* everything else derives from the eight above, in both themes */
+:root {
+  --card: var(--raised);
+  --card-foreground: var(--foreground);
+  --popover: var(--raised);
+  --popover-foreground: var(--foreground);
+  --primary-foreground: var(--background);
+  --secondary: var(--raised);
+  --muted: var(--raised);
+  --accent: var(--border);                 /* shadcn's hover fill, not our orange */
+  --accent-foreground: var(--foreground);
+  --destructive: hsl(0 72% 51%);
+  --input: var(--border);
+  --ring: var(--primary);
+}
+
+@theme inline {
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-sans: var(--font-mono);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-paragraph: var(--paragraph);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 2px);
+
+  --ease-lift: cubic-bezier(.2, .8, .2, 1);
+}
+
+/* ── base ──────────────────────────────────────────────────────────────── */
+
+@layer base {
+  * { @apply border-border; }
+
+  html {
+    /* body text runs 16px on phones to ~21px on wide screens */
+    font-size: clamp(100%, 0.56vw + 88%, 130%);
+    scrollbar-color: var(--muted-foreground) transparent;
+  }
+
+  body {
+    @apply bg-background font-mono text-secondary-foreground antialiased;
+    font-variant-ligatures: none;
+    line-height: 1.6;
+  }
+
+  ::selection {
+    background-color: var(--border);
+    color: var(--foreground);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  button:not(:disabled) { cursor: pointer; }
+}
+
+/* ── links: accent color and a small lift ──────────────────────────────── */
+
+@utility lift {
+  position: relative;
+  transition: color .25s ease, transform .25s var(--ease-lift);
+  will-change: transform;          /* keep its own layer, so text doesn't snap as the lift ends */
+
+  /* hit area reaches 4px past the link, so the lifted link stays under the
+     cursor instead of slipping out, dropping back, and flickering */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -4px 0;
+    z-index: -1;
+  }
+
+  &:is(:hover, :focus-visible) {
+    color: var(--primary);
+    transform: translateY(-2px);
+  }
+}
+
+/* ── page ──────────────────────────────────────────────────────────────── */
+
+.page {
+  --gutter: clamp(1.5rem, 6vw, 6.25rem);
+  padding: 5.625rem var(--gutter) 3.75rem;
+  animation: fade .4s cubic-bezier(0.25, 1, 0.5, 1) backwards;
+}
+
+@keyframes fade {
+  from { opacity: 0; }
+}
+
+@media (max-width: 640px) {
+  .page { --gutter: 1.125rem; padding-block: 3.125rem 2.5rem; }
+}
+
+/* ── projects strip ────────────────────────────────────────────────────── */
+
+/* bleeds into the page gutters and fades out there */
+.strip {
+  margin-inline: calc(-1 * var(--gutter));
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent);
+          mask-image: linear-gradient(to right, transparent, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent);
+  cursor: grab;
+}
+
+.strip:active { cursor: grabbing; }
+
+.strip:focus-visible { outline-offset: -2px; }
+
+/* ── tech logos ────────────────────────────────────────────────────────── */
+
+/* brand color, set per icon. --c-dark / --c-light override it on the theme
+   where the brand's own color would disappear into the background. */
+.tech {
+  fill: currentColor;
+  color: var(--c-light, var(--c, currentColor));
+  opacity: .88;
+  transition: opacity .15s;
+}
+
+.dark .tech { color: var(--c-dark, var(--c, currentColor)); }
+
+.tech:hover,
+a:hover .tech { opacity: 1; }
+
+/* ── reduced motion ────────────────────────────────────────────────────── */
+
+/* last, so it beats the hover lifts above; the color change stays */
+@media (prefers-reduced-motion: reduce) {
+  .page { animation: none; }
+
+  .lift:is(:hover, :focus-visible) { transform: none; }
+
+  /* dialogs, sheets, menus and the accordion appear without animating */
+  *, *::before, *::after { animation-duration: 0s !important; }
+}

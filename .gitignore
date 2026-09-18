@@ -1,2 +1,4 @@
 # resume holds a phone number and email — keep it out of the repo
 Rahul_Raghupathi_Resume.pdf
+node_modules
+dist
