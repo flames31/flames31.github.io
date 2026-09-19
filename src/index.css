@@ -93,8 +93,8 @@
   --ease-lift: cubic-bezier(.2, .8, .2, 1);
 }
 
-/* ── palette previews (temporary) ─────────────────────────────────────────
-   Picked with the switcher in the corner of the dev server. Roles:
+/* ── palettes ─────────────────────────────────────────────────────────────
+   Alternatives to amber, picked by the visitor (components/palette.tsx). Roles:
    title = --foreground, text = --paragraph, subtitle = --secondary-foreground,
    label = --label, link = --link, accent (hovers, heatmap, focus) = --primary. */
 

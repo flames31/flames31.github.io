@@ -27,9 +27,9 @@
     var dark = s ? s === 'dark' : !matchMedia('(prefers-color-scheme: light)').matches;
     document.documentElement.classList.toggle('dark', dark);
   } catch (e) { document.documentElement.classList.add('dark'); }
-  /* temporary: palette preview, set by the dev-only switcher */
+  /* the visitor's color palette, if they picked one */
   try {
-    var p = sessionStorage.getItem('palette');
+    var p = localStorage.getItem('palette');
     if (p) document.documentElement.dataset.palette = p;
   } catch (e) {}
 </script>

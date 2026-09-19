@@ -1,7 +1,8 @@
 import { useEffect } from "react"
-import { CornerDownRight, Folder } from "lucide-react"
+import { CornerDownRight, Folder, Palette } from "lucide-react"
 import { useNavigate } from "react-router"
 
+import { palettes, setPalette } from "@/components/palette"
 import { Logo } from "@/components/tech-icon"
 import { themes, useTheme } from "@/components/theme"
 import {
@@ -46,7 +47,7 @@ export function CommandMenu({
   }
 
   return (
-    <CommandDialog open={open} onOpenChange={setOpen} title="Command menu" description="Go to a page, open a project or link, or change the theme.">
+    <CommandDialog open={open} onOpenChange={setOpen} title="Command menu" description="Go to a page, open a project or link, or change the theme or palette.">
       <CommandInput placeholder="Type a command or search…" />
       <CommandList>
         <CommandEmpty>No results.</CommandEmpty>
@@ -85,6 +86,15 @@ export function CommandMenu({
             <CommandItem key={value} value={`theme ${label}`} onSelect={run(() => setTheme(value))}>
               <Icon aria-hidden />
               {label}
+            </CommandItem>
+          ))}
+        </CommandGroup>
+
+        <CommandGroup heading="Palette">
+          {palettes.map((p) => (
+            <CommandItem key={p.id} value={`palette ${p.label}`} onSelect={run(() => setPalette(p.id))}>
+              <Palette aria-hidden />
+              {p.label}
             </CommandItem>
           ))}
         </CommandGroup>

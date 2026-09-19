@@ -3,7 +3,7 @@ import { ArrowLeft } from "lucide-react"
 import { Link, Outlet, ScrollRestoration, useLocation } from "react-router"
 
 import { CommandMenu } from "@/components/command-menu"
-import { PalettePicker } from "@/components/palette-picker"
+import { PalettePicker } from "@/components/palette"
 import { ThemeMenu } from "@/components/theme"
 import { profile } from "@/data"
 import { pageTitle } from "@/routes"
@@ -11,7 +11,7 @@ import { pageTitle } from "@/routes"
 export const isMac = typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.platform)
 export const shortcut = isMac ? "⌘K" : "Ctrl K"
 
-// lets any page open the palette (the home page has a tile for it)
+// lets any page open the command menu (the home page has a tile for it)
 const OpenCommand = createContext<() => void>(() => {})
 export const useOpenCommand = () => useContext(OpenCommand)
 
@@ -24,7 +24,7 @@ export function Layout() {
   }, [pathname])
 
   return (
-    <div className="mx-auto max-w-[68rem] px-4 pb-16 sm:px-6">
+    <div className="mx-auto max-w-[68rem] px-4 pb-32 sm:px-6 sm:pb-24">
       <header className="flex h-20 items-center gap-3">
         {pathname !== "/" && (
           <Link to="/" className="lift inline-flex items-center gap-2 text-sm text-link">
@@ -53,7 +53,7 @@ export function Layout() {
       </main>
 
       <CommandMenu open={commandOpen} setOpen={setCommandOpen} />
-      {import.meta.env.DEV && <PalettePicker />}
+      <PalettePicker />
       <ScrollRestoration />
     </div>
   )
