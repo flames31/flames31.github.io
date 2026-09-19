@@ -3,7 +3,7 @@ import tailwindcss from "@tailwindcss/vite"
 import react from "@vitejs/plugin-react"
 import { defineConfig, type Plugin } from "vite"
 
-import { pageTitle, pages } from "./src/routes"
+import { pageTitle, pages } from "./src/routes.ts"
 
 // GitHub Pages has no SPA fallback: give every route its own copy of index.html,
 // and use one more as 404.html so unknown paths still boot the app.
