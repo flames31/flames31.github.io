@@ -12,6 +12,8 @@ export const pages = [
 export const siteTitle = "Rahul Raghupathi"
 
 export const pageTitle = (path: string) => {
-  const page = pages.find((p) => p.path === path)
+  // GitHub Pages serves each page as a folder, so the live path may end in "/"
+  const bare = path.replace(/\/+$/, "") || "/"
+  const page = pages.find((p) => p.path === bare)
   return page ? `${page.title} · ${siteTitle}` : siteTitle
 }
