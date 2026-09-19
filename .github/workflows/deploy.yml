@@ -1,10 +1,13 @@
 # Builds the site and publishes dist/ to GitHub Pages.
 # Needs Settings → Pages → Source set to "GitHub Actions".
+# Also rebuilds daily, which refreshes the GitHub contributions heatmap.
 name: Deploy
 
 on:
   push:
     branches: [main]
+  schedule:
+    - cron: "17 6 * * *"
   workflow_dispatch:
 
 permissions:

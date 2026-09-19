@@ -95,8 +95,8 @@
   * { @apply border-border; }
 
   html {
-    /* body text runs 16px on phones to ~21px on wide screens */
-    font-size: clamp(100%, 0.56vw + 88%, 130%);
+    /* body text runs 16px on phones to 18px on wide screens */
+    font-size: clamp(100%, 0.3vw + 90%, 112.5%);
     scrollbar-color: var(--muted-foreground) transparent;
   }
 
@@ -114,7 +114,6 @@
   :focus-visible {
     outline: 2px solid var(--ring);
     outline-offset: 3px;
-    border-radius: 2px;
   }
 
   button:not(:disabled) { cursor: pointer; }
@@ -144,33 +143,12 @@
 
 /* ── page ──────────────────────────────────────────────────────────────── */
 
-.page {
-  --gutter: clamp(1.5rem, 6vw, 6.25rem);
-  padding: 5.625rem var(--gutter) 3.75rem;
-  animation: fade .4s cubic-bezier(0.25, 1, 0.5, 1) backwards;
-}
+/* each page fades in as it mounts */
+.fade-in { animation: fade .4s cubic-bezier(0.25, 1, 0.5, 1) backwards; }
 
 @keyframes fade {
   from { opacity: 0; }
 }
-
-@media (max-width: 640px) {
-  .page { --gutter: 1.125rem; padding-block: 3.125rem 2.5rem; }
-}
-
-/* ── projects strip ────────────────────────────────────────────────────── */
-
-/* bleeds into the page gutters and fades out there */
-.strip {
-  margin-inline: calc(-1 * var(--gutter));
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent);
-          mask-image: linear-gradient(to right, transparent, #000 var(--gutter), #000 calc(100% - var(--gutter)), transparent);
-  cursor: grab;
-}
-
-.strip:active { cursor: grabbing; }
-
-.strip:focus-visible { outline-offset: -2px; }
 
 /* ── tech logos ────────────────────────────────────────────────────────── */
 
@@ -192,8 +170,6 @@ a:hover .tech { opacity: 1; }
 
 /* last, so it beats the hover lifts above; the color change stays */
 @media (prefers-reduced-motion: reduce) {
-  .page { animation: none; }
-
   .lift:is(:hover, :focus-visible) { transform: none; }
 
   /* dialogs, sheets, menus and the accordion appear without animating */

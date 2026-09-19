@@ -5,11 +5,19 @@ import type { IconName } from "@/icons"
 
 export const profile = {
   name: "Rahul Raghupathi",
+  handle: "@flames31",
   role: "software engineer · distributed systems",
-  about:
+  about: [
     "I build backend systems — mostly Go and Java, with TypeScript on top. " +
-    "Lately that means streaming pipelines, Postgres at scale, and LLM tooling " +
-    "that earns its keep.",
+      "Lately that means streaming pipelines, Postgres at scale, and LLM tooling " +
+      "that earns its keep.",
+    "[A paragraph on how you got here — what pulled you toward backend and distributed systems.]",
+    "[A paragraph on what you're looking for next, or what you do away from the keyboard.]",
+  ],
+  // the project the home page's "currently building" card points at (an id from projects below)
+  building: "incident-responder",
+  // shown on /contact when set, e.g. "you@example.com". Left out on purpose: it becomes public.
+  email: undefined as string | undefined,
   links: [
     { label: "github", href: "https://github.com/flames31", icon: "github" },
     { label: "linkedin", href: "https://linkedin.com/in/rahulraghupathi", icon: "linkedin" },

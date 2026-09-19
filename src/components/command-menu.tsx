@@ -1,5 +1,6 @@
 import { useEffect } from "react"
-import { Folder, Hash } from "lucide-react"
+import { CornerDownRight, Folder } from "lucide-react"
+import { useNavigate } from "react-router"
 
 import { Logo } from "@/components/tech-icon"
 import { themes, useTheme } from "@/components/theme"
@@ -13,23 +14,19 @@ import {
   CommandSeparator,
 } from "@/components/ui/command"
 import { profile, projects } from "@/data"
+import { pages } from "@/routes"
 
-const sections = [
-  { id: "about", label: "About" },
-  { id: "projects", label: "Projects" },
-  { id: "experience", label: "Experience" },
-]
+const destinations = [{ path: "/", title: "Home" }, ...pages]
 
 export function CommandMenu({
   open,
   setOpen,
-  onOpenProject,
 }: {
   open: boolean
   setOpen: (open: boolean | ((o: boolean) => boolean)) => void
-  onOpenProject: (id: string) => void
 }) {
   const { setTheme } = useTheme()
+  const navigate = useNavigate()
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -48,29 +45,24 @@ export function CommandMenu({
     requestAnimationFrame(fn)
   }
 
-  const goTo = (id: string) => {
-    const smooth = !window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    document.getElementById(id)?.scrollIntoView({ behavior: smooth ? "smooth" : "auto", block: "start" })
-  }
-
   return (
-    <CommandDialog open={open} onOpenChange={setOpen} title="Command menu" description="Jump to a section, open a project or link, or change the theme.">
+    <CommandDialog open={open} onOpenChange={setOpen} title="Command menu" description="Go to a page, open a project or link, or change the theme.">
       <CommandInput placeholder="Type a command or search…" />
       <CommandList>
         <CommandEmpty>No results.</CommandEmpty>
 
         <CommandGroup heading="Go to">
-          {sections.map((s) => (
-            <CommandItem key={s.id} onSelect={run(() => goTo(s.id))}>
-              <Hash aria-hidden />
-              {s.label}
+          {destinations.map((d) => (
+            <CommandItem key={d.path} onSelect={run(() => navigate(d.path))}>
+              <CornerDownRight aria-hidden />
+              {d.title}
             </CommandItem>
           ))}
         </CommandGroup>
 
         <CommandGroup heading="Projects">
           {projects.map((p) => (
-            <CommandItem key={p.id} onSelect={run(() => onOpenProject(p.id))}>
+            <CommandItem key={p.id} onSelect={run(() => navigate(`/projects#${p.id}`))}>
               <Folder aria-hidden />
               {p.title}
             </CommandItem>

@@ -10,5 +10,3 @@ export function useMediaQuery(query: string) {
     () => window.matchMedia(query).matches,
   )
 }
-
-export const useReducedMotion = () => useMediaQuery("(prefers-reduced-motion: reduce)")

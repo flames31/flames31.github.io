@@ -1,78 +1,30 @@
-import { useMemo, useRef, type ReactNode } from "react"
-import { WheelGesturesPlugin } from "embla-carousel-wheel-gestures"
-import { ArrowUpRight } from "lucide-react"
+import { useRef, type ReactNode } from "react"
+import { ArrowRight, ArrowUpRight } from "lucide-react"
+import { Link } from "react-router"
 
 import { Stack } from "@/components/tech-icon"
+import { card, interactive } from "@/components/tile"
 import { Badge } from "@/components/ui/badge"
-import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel"
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet"
 import { projects, type Project } from "@/data"
-import { useMediaQuery, useReducedMotion } from "@/hooks/use-media-query"
+import { useMediaQuery } from "@/hooks/use-media-query"
 import { icons } from "@/icons"
+import { cn } from "@/lib/utils"
 
-// Embla only loops when the slides are wider than the view, so the set is
-// repeated. Three copies of three cards cover a ~4000px-wide window.
-const COPIES = 3
-
-export function Projects({ onOpen }: { onOpen: (id: string) => void }) {
-  const root = useRef<HTMLDivElement>(null)
-  const reduce = useReducedMotion()
-
-  const opts = useMemo(
-    () => ({
-      loop: true,
-      duration: reduce ? 0 : 25,
-      // snap each card to the page's text edge rather than the bleed edge
-      align: () => (root.current ? -parseFloat(getComputedStyle(root.current).marginLeft) : 0),
-    }),
-    [reduce],
-  )
-  const plugins = useMemo(() => [WheelGesturesPlugin()], [])
-
+/** A project card; opens its write-up at /projects#id. */
+export function ProjectCard({ project: p }: { project: Project }) {
   return (
-    <Carousel
-      ref={root}
-      opts={opts}
-      plugins={plugins}
-      className="strip"
-      tabIndex={0}
-      aria-label="Projects — drag or use the arrow keys"
-    >
-      {/* block padding: room for the card lift */}
-      <CarouselContent className="ml-0 py-1">
-        {Array.from({ length: COPIES }, (_, copy) =>
-          projects.map((p) => (
-            <CarouselItem
-              key={`${copy}-${p.id}`}
-              className="basis-[min(23.75rem,78vw)] pr-5 pl-0"
-              inert={copy > 0}
-              aria-hidden={copy > 0 || undefined}
-            >
-              <ProjectCard project={p} onOpen={() => onOpen(p.id)} />
-            </CarouselItem>
-          )),
-        )}
-      </CarouselContent>
-    </Carousel>
-  )
-}
-
-function ProjectCard({ project: p, onOpen }: { project: Project; onOpen: () => void }) {
-  return (
-    <article className="group relative h-full rounded-md border bg-card px-[1.375rem] py-5 transition duration-250 ease-lift select-none hover:-translate-y-[3px] hover:border-primary has-focus-visible:border-primary motion-reduce:hover:translate-y-0">
-      <h3>
-        {/* the ::after stretches the button over the whole card; the logos sit above it */}
-        <button
-          type="button"
-          onClick={onOpen}
-          className="text-left font-medium text-foreground transition-colors after:absolute after:inset-0 after:content-[''] group-hover:text-primary focus-visible:outline-none"
-        >
+    <article className={cn(card, interactive, "h-full")}>
+      <h2 className="font-medium text-foreground transition-colors group-hover:text-primary">
+        {/* the ::after stretches the link over the whole card; the logos sit above it */}
+        <Link to={`/projects#${p.id}`} preventScrollReset className="after:absolute after:inset-0 after:rounded-lg focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:outline-offset-2 focus-visible:after:outline-ring">
           {p.title}
-        </button>
-      </h3>
-      <p className="mt-0.5 text-paragraph">{p.desc}</p>
-      <Stack names={p.stack} />
+        </Link>
+      </h2>
+      <p className="mt-1 text-sm text-paragraph">{p.desc}</p>
+      <Stack names={p.stack} className="mt-auto pt-4" />
+      <ArrowRight aria-hidden className="absolute right-5 bottom-5 size-4 text-primary opacity-0 transition-opacity group-hover:opacity-100 max-md:opacity-60" />
     </article>
   )
 }
