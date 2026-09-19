@@ -3,6 +3,7 @@ import { ArrowLeft } from "lucide-react"
 import { Link, Outlet, ScrollRestoration, useLocation } from "react-router"
 
 import { CommandMenu } from "@/components/command-menu"
+import { PalettePicker } from "@/components/palette-picker"
 import { ThemeMenu } from "@/components/theme"
 import { profile } from "@/data"
 import { pageTitle } from "@/routes"
@@ -26,7 +27,7 @@ export function Layout() {
     <div className="mx-auto max-w-[68rem] px-4 pb-16 sm:px-6">
       <header className="flex h-20 items-center gap-3">
         {pathname !== "/" && (
-          <Link to="/" className="lift inline-flex items-center gap-2 text-sm text-secondary-foreground">
+          <Link to="/" className="lift inline-flex items-center gap-2 text-sm text-link">
             <ArrowLeft className="size-4" aria-hidden />
             {profile.name}
           </Link>
@@ -52,6 +53,7 @@ export function Layout() {
       </main>
 
       <CommandMenu open={commandOpen} setOpen={setCommandOpen} />
+      {import.meta.env.DEV && <PalettePicker />}
       <ScrollRestoration />
     </div>
   )
@@ -61,7 +63,7 @@ export function Layout() {
 export function PageHeader({ eyebrow, title, children }: { eyebrow: string; title: string; children?: ReactNode }) {
   return (
     <div className="mb-8">
-      <p className="text-xs tracking-[0.12em] text-muted-foreground uppercase">{eyebrow}</p>
+      <p className="text-xs tracking-[0.12em] text-label uppercase">{eyebrow}</p>
       <h1 className="mt-1 text-2xl font-medium text-foreground">{title}</h1>
       {children && <p className="mt-2 max-w-prose text-paragraph">{children}</p>}
     </div>

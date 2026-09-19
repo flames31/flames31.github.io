@@ -15,7 +15,7 @@ export function Card({ className, ...props }: ComponentProps<"div">) {
 }
 
 export function Eyebrow({ className, ...props }: ComponentProps<"p">) {
-  return <p className={cn("text-xs tracking-[0.12em] text-muted-foreground uppercase", className)} {...props} />
+  return <p className={cn("text-xs tracking-[0.12em] text-label uppercase", className)} {...props} />
 }
 
 type TileProps = {

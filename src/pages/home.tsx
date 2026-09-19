@@ -21,7 +21,7 @@ export function Home() {
         <div className="flex-1 py-4 sm:pr-8">
           <Eyebrow>{profile.role}</Eyebrow>
           <h1 className="mt-2 text-3xl font-medium tracking-[-0.02em] text-foreground">{profile.name}</h1>
-          <a href={github.href} className="lift mt-1 inline-block text-muted-foreground">
+          <a href={github.href} className="lift mt-1 inline-block text-link">
             {profile.handle}
           </a>
         </div>

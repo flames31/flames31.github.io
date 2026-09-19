@@ -88,7 +88,7 @@ function Body({ project: p }: { project: Project }) {
       </div>
 
       {p.repo && (
-        <a href={p.repo} className="lift inline-flex w-fit items-center gap-1 text-foreground">
+        <a href={p.repo} className="lift inline-flex w-fit items-center gap-1 text-link">
           source <ArrowUpRight className="size-3.5" aria-hidden />
         </a>
       )}
@@ -99,7 +99,7 @@ function Body({ project: p }: { project: Project }) {
 function Part({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section>
-      <h4 className="text-xs tracking-[0.12em] text-muted-foreground uppercase">{title}</h4>
+      <h4 className="text-xs tracking-[0.12em] text-label uppercase">{title}</h4>
       <p className="mt-1 text-paragraph">{children}</p>
     </section>
   )

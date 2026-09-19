@@ -43,6 +43,8 @@
 
 /* everything else derives from the eight above, in both themes */
 :root {
+  --label: var(--muted-foreground);        /* UPPERCASE eyebrows */
+  --link: var(--secondary-foreground);     /* inline links at rest; they turn --primary on hover */
   --card: var(--raised);
   --card-foreground: var(--foreground);
   --popover: var(--raised);
@@ -64,6 +66,8 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-paragraph: var(--paragraph);
+  --color-label: var(--label);
+  --color-link: var(--link);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
@@ -87,6 +91,55 @@
   --radius-xl: calc(var(--radius) + 2px);
 
   --ease-lift: cubic-bezier(.2, .8, .2, 1);
+}
+
+/* ── palette previews (temporary) ─────────────────────────────────────────
+   Picked with the switcher in the corner of the dev server. Roles:
+   title = --foreground, text = --paragraph, subtitle = --secondary-foreground,
+   label = --label, link = --link, accent (hovers, heatmap, focus) = --primary. */
+
+html[data-palette="terminal"]:not(.dark) {
+  --background: #fafaf9; --raised: #f3f2f0; --border: #e2dfdc;
+  --foreground: #0c0a09; --paragraph: #c2410c; --secondary-foreground: #9a3412;
+  --label: #57534e; --muted-foreground: #78716c; --primary: #4d7c0f; --link: #4d7c0f;
+}
+html.dark[data-palette="terminal"] {
+  --background: #0c0a09; --raised: #171412; --border: #2a2522;
+  --foreground: #fafaf9; --paragraph: #fb923c; --secondary-foreground: #fdba74;
+  --label: #a8a29e; --muted-foreground: #8a837e; --primary: #a3e635; --link: #a3e635;
+}
+
+html[data-palette="gruvbox"]:not(.dark) {
+  --background: #fbf1c7; --raised: #f2e5bc; --border: #d5c4a1;
+  --foreground: #282828; --paragraph: #af3a03; --secondary-foreground: #b57614;
+  --label: #076678; --muted-foreground: #7c6f64; --primary: #79740e; --link: #79740e;
+}
+html.dark[data-palette="gruvbox"] {
+  --background: #1d2021; --raised: #282828; --border: #3c3836;
+  --foreground: #fbf1c7; --paragraph: #fe8019; --secondary-foreground: #fabd2f;
+  --label: #83a598; --muted-foreground: #928374; --primary: #b8bb26; --link: #b8bb26;
+}
+
+html[data-palette="tokyo"]:not(.dark) {
+  --background: #e1e2e7; --raised: #ececf0; --border: #c4c8da;
+  --foreground: #343b58; --paragraph: #b15c00; --secondary-foreground: #8c6c3e;
+  --label: #2e7de9; --muted-foreground: #6172b0; --primary: #587539; --link: #587539;
+}
+html.dark[data-palette="tokyo"] {
+  --background: #16161e; --raised: #1a1b26; --border: #292e42;
+  --foreground: #c0caf5; --paragraph: #ff9e64; --secondary-foreground: #e0af68;
+  --label: #7aa2f7; --muted-foreground: #737aa2; --primary: #9ece6a; --link: #9ece6a;
+}
+
+html[data-palette="synthwave"]:not(.dark) {
+  --background: #fafafa; --raised: #f4f4f5; --border: #e4e4e7;
+  --foreground: #09090b; --paragraph: #c2410c; --secondary-foreground: #9a3412;
+  --label: #be185d; --muted-foreground: #71717a; --primary: #0e7490; --link: #0e7490;
+}
+html.dark[data-palette="synthwave"] {
+  --background: #09090b; --raised: #131316; --border: #27272a;
+  --foreground: #ffffff; --paragraph: #fb923c; --secondary-foreground: #fdba74;
+  --label: #f472b6; --muted-foreground: #8b8b94; --primary: #22d3ee; --link: #22d3ee;
 }
 
 /* ── base ──────────────────────────────────────────────────────────────── */
